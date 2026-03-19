@@ -1,9 +1,20 @@
+"""
+โมดูลตั้งค่าและติดตั้งโครงสร้างฐานข้อมูล (Database Schema setup)
+ถูกเรียกใช้ครั้งแรกเสมอตอนเริ่มต้นโปรแกรม
+"""
+
 import sqlite3
 
 def init_db():
-    con = sqlite3.connect("bookstore.db") # จะถูกสร้างที่โฟลเดอร์นอกสุด (root) ตอนรัน main
+    """
+    ตรวจสอบและสร้างตารางฐานข้อมูลที่จำเป็น หากยังไม่มีอยู่
+    พร้อมกับเพิ่มข้อมูลทดสอบเบื้องต้น (Mock Data) หากตารางหนังสือว่างเปล่า
+    """
+    # จะถูกสร้างที่โฟลเดอร์นอกสุด (root) ตอนรัน main
+    con = sqlite3.connect("bookstore.db") 
     cur = con.cursor()
     
+    # รันสคริปต์ SQL เพื่อสร้างโครงสร้างตาราง
     cur.executescript("""
     PRAGMA foreign_keys = ON;
 
@@ -35,6 +46,7 @@ def init_db():
     );
     """)
 
+    # หากเพิ่งสร้าง DB ครั้งแรก จะมีข้อมูลเบื้องต้นให้ 2 เล่ม
     cur.execute("SELECT COUNT(*) FROM books")
     if cur.fetchone()[0] == 0:
         cur.execute("INSERT INTO books (isbn, bookname, price, qty) VALUES ('9781234567890', 'Python Programming', 350, 10)")
