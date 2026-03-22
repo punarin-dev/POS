@@ -58,7 +58,7 @@ class CheckoutWindow:
         self.txt_address.grid(row=2, column=1, columnspan=3, sticky="w", pady=2)
 
         # แถว 3: จังหวัด
-        tk.Label(frame_address, text="จังหวัด:").grid(row=3, column=0, sticky="w", pady=2)
+        tk.Label(frame_address, text="เบอร์โทร:").grid(row=3, column=0, sticky="w", pady=2)
         self.ent_province = tk.Entry(frame_address, width=20)
         self.ent_province.grid(row=3, column=1, sticky="w", pady=2)
 
